@@ -1,4 +1,4 @@
-<!-- copy this file and change credentials    -->
+<!-- copy this file and change credentials -->
 
 
 <?php 
