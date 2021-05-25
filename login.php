@@ -59,6 +59,7 @@
                                                         <a href="register.php">Create Account</a>
                                                     </div>
                                                 </div>
+                                               
                                             </div>
                                             <div class="validation pt-3">
                                                 <!-- |||||||||||||||||||||||||||||||    VALIDATION   |||||||||||||||||||||||||||||| -->
