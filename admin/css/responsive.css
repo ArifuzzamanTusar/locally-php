@@ -1,0 +1,24 @@
+@media only screen and (max-width: 576px) {
+    /* Small devices (landscape phones) */
+    .login-widget{
+        width: 100%;
+    }
+  
+    
+  }
+  @media only screen and (min-width: 768px) {
+    /* Medium devices (tablets) */
+    
+  }
+  @media only screen and (min-width: 992px) {
+    /* Large devices (desktops) */
+    .login-widget{
+        width: 40%;
+        
+    }
+  }
+  @media only screen and (min-width: 1200px) {
+    /* Extra large devices (large desktops) */
+    
+  }
+  

@@ -1,0 +1,109 @@
+/* responsive */
+@media only screen and ( max-width:576px) {
+  /* Small devices (landscape phones) */
+  .user_lists{
+    
+    font-size: 12px;
+  }
+
+}
+@media only screen and ( min-width:768px) {
+  /* Medium devices (tablets) */
+     
+}
+@media only screen and ( min-width: 992px) {
+  /* Large devices (desktops) */
+  
+}
+@media only screen and (min-width: 1200px) {
+  /* Extra large devices (large desktops) */
+}
+
+/* ---------------- */
+
+.user_lists{
+  list-style-type: none;
+  border-bottom: 1px solid rgba(224, 224, 224, 0.315);
+  
+}
+
+.orange {
+  color: orange;
+}
+.blue {
+  color: skyblue;
+}
+
+
+
+.topic-tittle {
+  color: purple;
+  font-size: larger;
+}
+
+.topic {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px gray;
+  overflow: hidden;
+}
+.topic:hover {
+  transition: 0.5s;
+  box-shadow: 10px 10px 30px gray;
+}
+
+/* ------------------------AUDIENCE---------------------- */
+.aud_avater {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+}
+
+.user_avater{
+  /* width: 200px;
+  height: 200px; */
+  max-width: 100%;
+  transition: .5s;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.822);
+
+}
+.user_avater:hover{
+  transition: .5s;
+    box-shadow: 5px 5px 20px gray ;
+
+}
+
+.table_row {
+    transition: .5s;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.158);
+}
+.table_row:hover{
+    transition: .5s;
+    box-shadow: 5px 5px 20px gray ;
+
+}
+/* decaring table columns width for beautification */
+
+.c1 {
+  width: 10%;
+}
+.c2 {
+  width: 20%;
+}
+.c1, .c2 {
+  padding: 20px;
+}
+.t-head{
+    font-weight: bold;
+}
+.t-row{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    
+    
+}
+

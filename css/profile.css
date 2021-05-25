@@ -1,0 +1,46 @@
+.cover_pic {
+  /* height: 200px; */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.profile{
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.329);
+}
+.profile_pic {
+    box-shadow: 0px 2px 10px gray;
+  border: 5px solid white;
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  margin-top: -100px;
+}
+.profile_sub, .profile_sub a {
+    transition: .5s;
+    /* color: #4d4c7d; */
+    padding: 3px ;
+ 
+}
+.profile_sub:hover{
+    color: #FF4500;
+    
+    transition: .5s;
+    background: #EEEEEE;
+    padding-left:15px;
+}
+.profile_username{
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.profile_intro{
+    box-shadow: 0px 0px 10px rgba(207, 207, 207, 0.664);
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+
+/* See theme style.css for create post widgets */

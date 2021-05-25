@@ -1,0 +1,4 @@
+Primary-Dark    #363062
+Secondary-Dark  #4d4c7d
+Secondary-Light #827397
+Body-color      #d8b9c3

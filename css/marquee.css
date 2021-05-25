@@ -1,0 +1,33 @@
+.marquee {
+    width:100%;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: right;
+}
+
+.marquee span {
+    display: inline-block;
+    animation-name: marquee;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: reverse;
+
+}
+
+/* Make it move */
+@keyframes marquee {
+    0% {
+        transform: translateX(0px)
+    }
+
+
+    40%, 60% {
+        transform: translateX(calc(40px - 100%))
+    }
+
+    100% {
+        transform: translateX(0px)
+    }
+}
