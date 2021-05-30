@@ -52,7 +52,7 @@ include "header.php";
                             <div class="profile_sub"><i class="fas fa-building"></i> &nbsp; &nbsp; <?php echo $company ?></div>
                         </a>
 
-                        <!-- <a href="#"><div class="profile_sub"><i class="fas fa-envelope"></i> &nbsp; &nbsp; <?php// echo $email?></div> </a> -->
+        
 
                         <a href="#">
                             <div class="profile_sub"><i class="fas fa-phone-alt"></i> &nbsp; &nbsp; <?php echo $phone ?></div>
