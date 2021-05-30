@@ -1,9 +1,11 @@
 .cover_pic {
-  /* height: 200px; */
+
+  height: 400px; 
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .profile{
     background: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.329);

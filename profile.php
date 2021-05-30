@@ -1,10 +1,11 @@
+<link rel="stylesheet" href="css/profile.css">
 <?php
 $page_tittle = "Profile";
 $page_id = 4;
 include "header.php";
 
 ?>
-<link rel="stylesheet" href="css/profile.css">
+
 
 <div class="profile_body">
     <div class="identity">

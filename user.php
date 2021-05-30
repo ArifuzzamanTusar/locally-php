@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/profile.css">
 <?php
 $page_tittle = "Profile";
 $page_id = 5;
@@ -36,7 +37,7 @@ if (isset($_GET["user_id"])) {
 }
 
 ?>
-<link rel="stylesheet" href="css/profile.css">
+
 
 <div class="profile_body">
     <div class="identity">
