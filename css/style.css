@@ -237,11 +237,14 @@ body {
 }
 
 .single_author_avater_img {
- 
+  object-fit: cover;
+  object-position: center;
   border-radius: 100px;
   border: 1px solid white;
   box-shadow: 0px 0px 5px grey;
+
 }
+
 .comment_avater >.single_author_avater_img{
   width: 30px;
 }
