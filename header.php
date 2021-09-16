@@ -39,7 +39,7 @@ if ($page_id == 4) {
 
     <!-- theme style -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive-main.css">
+  
 
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -47,7 +47,7 @@ if ($page_id == 4) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- font aweasome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="css/responsive-main.css">
 </head>
 
 <body>
@@ -55,10 +55,10 @@ if ($page_id == 4) {
     <div class="header">
         <div class="container">
             <div class="row">
-                <div class="col-3 nav-menu">
-                    <div class="site-logo ">
-                        <img class="desktop" src="images/logo-light.png" height="40px" alt="logo">
-                        <img class="mobile" src="images/site-icon-white.png" height="30px" alt="logo">
+                <div class="col-3 d-flex justify-content-start">
+                    <div class="site-logo d-flex justify-content-start ">
+                        <img class="desktop-logo" src="images/logo-light.png" height="40px" alt="logo">
+                        <img class="mobile-logo" src="images/site-icon-white.png" height="30px" alt="logo">
                     </div>
                 </div>
 
