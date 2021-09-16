@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/arifuzza/project.arifuzzamantusar.com/locally-php
+    - /bin/cp -R images $DEPLOYPATH
+ 
