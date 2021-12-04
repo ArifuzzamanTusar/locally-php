@@ -61,9 +61,9 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                             $new_pass = $_REQUEST['password'];
                                             $md5_new_pass = md5($new_pass);
                                             $new_status = "pending";
-                                            
 
-                                            
+
+
 
 
                                             // ||||||||||| Username Duplicate Validation ||||||||||
@@ -82,7 +82,6 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                             }
                                             if ($row_cnt > 0) {
                                                 $dbex_nid = "You have already registered";
-                                                
                                             }
                                             // ---------------------------
 
@@ -116,9 +115,9 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                                 $new_user_query = "INSERT INTO `user` (`username`,`email`, `nid`,`city`,`password`,`status`) 
                                                                      VALUES ('$new_user', '$new_email','$new_nid','$new_city', '$md5_new_pass','$new_status');";
                                                 if (mysqli_query($con, $new_user_query)) {
-                                                    
 
-                                                    $product_up_ok = "Successfull!" ."<br>"."Your account is now under review";
+
+                                                    $product_up_ok = "Successfull!" . "<br>" . "Your account is now under review";
                                                     echo '<div class="alert-light text-success text-center py-3">' . $product_up_ok . '</div>';
                                                     // header("location:manage-topic.php");
 
@@ -158,8 +157,8 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                         <div class="form-group">
                                             <label for=""></label>
                                             <input type="text" class="form-control field-inner-shadow" name="username" id="" placeholder="Username" value="<?php if (isset($new_user)) {
-                                                                                                                                                            echo $new_user;
-                                                                                                                                                        } ?>">
+                                                                                                                                                                echo $new_user;
+                                                                                                                                                            } ?>">
                                             <!-- Empty Validation  -->
                                             <div class="text-danger">
                                                 <?php if (isset($empty_user)) {
@@ -193,8 +192,8 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                             </div>
                                             <label for=""></label>
                                             <input type="number" class="form-control field-inner-shadow" name="nid" id="" placeholder="Nid Number" value="<?php if (isset($new_nid)) {
-                                                                                                                                                            echo $new_nid;
-                                                                                                                                                        } ?>">
+                                                                                                                                                                echo $new_nid;
+                                                                                                                                                            } ?>">
                                             <!-- Empty Validation  -->
                                             <div class="text-danger">
                                                 <?php if (isset($empty_nid)) {
@@ -202,24 +201,30 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                                 }
                                                 ?>
                                             </div>
-                                             <!-- Duplicate  -->
+                                            <!-- Duplicate  -->
 
 
-                                             <div class="text-danger">
+                                            <div class="text-danger">
                                                 <?php if (isset($dbex_nid)) {
                                                     echo $dbex_nid;
                                                 }
                                                 ?>
                                             </div>
-                                           
+
 
                                             <label for=""></label>
                                             <select class="form-control" name="city" id="">
-                                               <!-- defined  -->
-                                               <option value="<?php if (isset($new_city)) {echo $new_city;} else{ echo "not selected";}  ?>" selected ><?php if (isset($new_city)) {echo $new_city;} else {
-                                                    echo "Select A city";
-                                                } ?></option>
-                                                
+                                                <!-- defined  -->
+                                                <option value="<?php if (isset($new_city)) {
+                                                                    echo $new_city;
+                                                                } else {
+                                                                    echo "not selected";
+                                                                }  ?>" selected><?php if (isset($new_city)) {
+                                                                                    echo $new_city;
+                                                                                } else {
+                                                                                    echo "Select A city";
+                                                                                } ?></option>
+
                                                 <?php
 
                                                 $query = "SELECT * FROM `districts` ORDER BY `districts`.`name` ASC";
@@ -232,7 +237,7 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                                         $dist_bn_name = $row["bn_name"];
                                                 ?>
 
-                                                        <option value="<?php echo $dist_name?>"> <?php echo $dist_name ?></option>
+                                                        <option value="<?php echo $dist_name ?>"> <?php echo $dist_name ?></option>
 
 
 
@@ -253,8 +258,8 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
 
                                             <label for=""></label>
                                             <input type="password" class="form-control field-inner-shadow" name="password" id="" placeholder="Password" value="<?php if (isset($new_pass)) {
-                                                                                                                                                            echo $new_pass;
-                                                                                                                                                        } ?>">
+                                                                                                                                                                    echo $new_pass;
+                                                                                                                                                                } ?>">
 
                                             <!-- Empty Validation  -->
                                             <div class="text-danger">

@@ -447,7 +447,7 @@ include "header.php";
                     <div class="sidebar pt-5">
                         <div class="pt-3"></div>
                         <div class="sb_topics">
-                            <h4>Popular Topics</h4>
+                            <h4>Popular Topics </h4>
                         </div>
                         <div class="topic_lists">
 

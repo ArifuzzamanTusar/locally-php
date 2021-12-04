@@ -39,6 +39,7 @@
 
                 $profile_picture = $row["avater_image"];
                 $cover_picture = $row["cover_image"];
+                $ev_status = $row["ev_status"];
 
                 // creating backup 
                 if (strlen($profile_picture) < 5) {
@@ -59,6 +60,9 @@
         if ($user_status=="banned") {
             header("location:banned.php?user=$username");
            
+        }
+        if ($ev_status!=1){
+            header("location:verify-email.php?user=$username");
         }
    
         
