@@ -6,41 +6,34 @@ use PHPMailer\PHPMailer\SMTP;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
+
+// fetching existing data 
+include 'connection.php';
+function fetch_appOptions($key)
+{
+    global $con;
+    $result = mysqli_query($con, "SELECT `ao_value`  FROM `app_options` WHERE `ao_key` LIKE '$key'");
+    if (mysqli_num_rows($result) > 0) {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            return $row["ao_value"];
+        }
+    }
+};
+
+
+
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer;
 //Server settings
 $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
 $mail->isSMTP();                                            //Send using SMTP
-$mail->Host       = 'serversi5.ebnhost.com';                     //Set the SMTP server to send through
+$mail->Host       = fetch_appOptions("smtp_host");                     //Set the SMTP server to send through
 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-$mail->Username   = 'locally@arifuzzamantusar.com';                     //SMTP username
-$mail->Password   = 'locally@1234';                               //SMTP password
+$mail->Username   = fetch_appOptions("smtp_user");                     //SMTP username
+$mail->Password   = fetch_appOptions("smtp_password");                               //SMTP password
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-$mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+$mail->Port       = fetch_appOptions("smtp_port");                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
 //Recipients
 $mail->setFrom('locally@arifuzzamantusar.com', 'LOCALLY');
-
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
