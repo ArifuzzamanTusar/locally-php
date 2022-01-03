@@ -1,17 +1,60 @@
-
-
 <?php
 //includes
 include 'connection.php';
 // $logged_user = "null";
-require_once('login-session.php');
+
+session_start();
+
+if (isset($_SESSION['username_session'])) {
+
+    $logged_user =  $_SESSION['username_session'];
+
+
+    include "connection.php";
+    $admin_query = " SELECT * FROM `user` WHERE username LIKE '$logged_user' ";
+    $result = mysqli_query($con, $admin_query);
+    if (mysqli_num_rows($result) > 0) {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $userid = $row["id"];
+            $username = $row["username"];
+            $email = $row["email"];
+            $last_otp = $row["last_otp_code"];
+
+            //note/task
+            // otp verification add
+
+
+        }
+    }
+} else {
+    header("location:login.php");
+}
 
 
 
 
 ?>
 
+<?php
+if (isset($_REQUEST['verify-email'])) {
+    $input_otp = $_REQUEST['otp'];
+    if ($input_otp == $last_otp) {
 
+        $sql = "UPDATE `user` SET `ev_status` = 'verified' WHERE `user`.`id` =$userid;";
+
+        if (mysqli_query($con, $sql)) {
+            $otp_matched = "true";
+        } 
+
+        
+    } else {
+        $otp_failed = "OTP doesn't match";
+    }
+}
+
+?>
 
 
 
@@ -51,58 +94,80 @@ require_once('login-session.php');
                             <div class="p-3"></div>
                             <div class="container">
                                 <div class="widget">
-                                    <!-- |||||| FORM |||||| -->
-                                    <form action="login-process.php" method="POST">
-                                        <div class="form-group">
-                                            <label for="">
-                                                OTP verifition for <i> <?php echo $email ?></i>
-                                                <a href="logout.php?logout">(Change account)</a>
-                                            </label>
-                                            <input name="username" type="text" class="form-control field-inner-shadow" id="" placeholder="OTP here">
+                                    <div class="otpworks">
+                                        <!-- |||||| FORM |||||| -->
+                                        <form action="" method="GET">
+                                            <div class="form-group">
+                                                <label for="">
+                                                    OTP verifition for <i> <?php echo $email ?></i>
+                                                    <a href="logout.php?logout">(Change account)</a>
+                                                </label>
+                                                <input name="otp" type="number" class="form-control field-inner-shadow" id="" placeholder="OTP here">
 
-                                            <div class="p-2"></div>
-                                            <button name="login" type="submit" class="form-control login ">Verify Your Email</button>
-
-
-
-                                            <div class="validation pt-3">
-                                                <!-- |||||||||||||||||||||||||||||||    VALIDATION   |||||||||||||||||||||||||||||| -->
-                                                <?php
-                                                if (@$_GET['Empty'] == true) {
-                                                ?>
-                                                    <div class="alert-danger text-danger text-center"><?php echo $_GET['Empty'] ?></div>
-                                                <?php
-                                                }
-                                                ?>
+                                                <div class="p-2"></div>
+                                                <button name="verify-email" value="true" type="submit" class="form-control login ">Verify Your Email</button>
+                                                <!-- <input type="submit" class="form-control login " value="Verify Your Email"> -->
 
 
-                                                <?php
-                                                if (@$_GET['Invalid'] == true) {
-                                                ?>
-                                                    <div class="alert-danger text-danger text-center"><?php echo $_GET['Invalid'] ?></div>
-                                                <?php
-                                                }
-                                                ?>
-                                                <!-- |||||||||||||||||||||||||||||||    VALIDATION   |||||||||||||||||||||||||||||| -->
+                                                <div class="validation pt-3">
+                                                    <!-- |||||||||||||||||||||||||||||||    VALIDATION   |||||||||||||||||||||||||||||| -->
+                                                    <?php
+                                                    echo $last_otp;
+                                                    if (isset($otp_failed)) {
+                                                    ?>
+                                                        <div class="alert-danger text-danger text-center"><?php echo $otp_failed; ?></div>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                    <!-- |||||||||||||||||||||||||||||||    VALIDATION   |||||||||||||||||||||||||||||| -->
+                                                </div>
+
                                             </div>
+                                        </form>
+
+                                        <div class="form-check text-center pt-2">
+                                            <p>OTP Expired? </p>
+                                            <form action="resend-otp-process.php" method="post">
+                                                <input type="text" name="re-email" value="<?php echo $email ?>" hidden>
+                                                <input name="resend-otp" style="border: none;" type="submit" value="Resend Verification Code">
+                                            </form>
+                                            <?php
+                                            if (isset($_GET['otp_resend_success'])) {
+                                                echo '<div class="mt-2 alert-success"> OTP has been sent to <br>' . $email . ' </div>';
+                                            }
+                                            ?>
+
 
                                         </div>
-                                    </form>
-
-                                    <div class="form-check text-center pt-2">
-                                        <p>OTP Expired? </p>
-                                        <form action="resend-otp-process.php" method="post">
-                                            <input type="text" name="re-email" value="<?php echo $email ?>" hidden>
-                                            <input name="resend-otp" style="border: none;" type="submit" value="Resend Verification Code">
-                                        </form>
-                                        <?php
-                                        if (isset($_GET['otp_resend_success'])) {
-                                            echo '<div class="mt-2 alert-success"> OTP has been sent to <br>' . $email . ' </div>';
-                                        }
-                                        ?>
-
-
                                     </div>
+
+
+                                    <?php
+                                    if (isset($otp_matched)) {
+
+                                    ?>
+                                        <style>
+                                            .otpworks {
+                                                display: none;
+                                            }
+                                        </style>
+                                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                                        <center>
+                                            <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_9n1h4nww.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></lottie-player>
+                                            <div class="text-white text-center bg-success p-2">
+                                                Wow! Your Email has been verified!
+                                            </div>
+                                            <div class="p-2"></div>
+
+                                            <a class="btn center btn btn-primary" href="index.php">Back to Home</a>
+
+                                        </center>
+
+
+                                    <?php
+                                    }
+
+                                    ?>
                                 </div>
                             </div>
 

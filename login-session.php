@@ -52,18 +52,21 @@
                 
             }
         }
-        
-        if ($user_status=="pending") {
-            header("location:pending.php?user=$username");
-           
-        }
-        if ($user_status=="banned") {
-            header("location:banned.php?user=$username");
-           
-        }
-        if ($ev_status!=1){
+        if ($ev_status=="unverified"){
             header("location:verify-email.php?user=$username");
         }
+        // if ($ev_status=1){
+        //     if ($user_status=="pending") {
+        //         header("location:pending.php?user=$username");
+               
+        //     }
+        //     if ($user_status=="banned") {
+        //         header("location:banned.php?user=$username");
+               
+        //     }
+        // }
+       
+       
    
         
     }

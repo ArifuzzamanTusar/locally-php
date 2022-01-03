@@ -61,6 +61,7 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                             $new_pass = $_REQUEST['password'];
                                             $md5_new_pass = md5($new_pass);
                                             $new_status = "pending";
+                                            $ev_status= "unverified";
 
 
 
@@ -112,8 +113,8 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                                 }
                                             } else {
                                                 // inserting 
-                                                $new_user_query = "INSERT INTO `user` (`username`,`email`, `nid`,`city`,`password`,`status`) 
-                                                                     VALUES ('$new_user', '$new_email','$new_nid','$new_city', '$md5_new_pass','$new_status');";
+                                                $new_user_query = "INSERT INTO `user` (`username`,`email`, `nid`,`city`,`password`,`status`,`ev_status`) 
+                                                                     VALUES ('$new_user', '$new_email','$new_nid','$new_city', '$md5_new_pass','$new_status','$ev_status');";
                                                 if (mysqli_query($con, $new_user_query)) {
 
 
