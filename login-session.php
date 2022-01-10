@@ -78,6 +78,7 @@
     }
 
 ?>
+<?php include 'gps.php';?>
 
 
 

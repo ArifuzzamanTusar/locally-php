@@ -19,8 +19,10 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <!-- fa  -->
+    <script src="https://kit.fontawesome.com/a559834955.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/geolocation.js"></script>
 
 </head>
 
@@ -61,7 +63,7 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                             $new_pass = $_REQUEST['password'];
                                             $md5_new_pass = md5($new_pass);
                                             $new_status = "pending";
-                                            $ev_status= "unverified";
+                                            $ev_status = "unverified";
 
 
 
@@ -148,6 +150,26 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                         }
                                         ?>
 
+                                        <!-- city selection  -->
+                                        <?php
+
+                                        // check cookie 
+                                        if (isset($_COOKIE["geoCity"])) {
+                                            $gpsCity = $_COOKIE["geoCity"];
+                                            $gpsAddress = $_COOKIE["geoFormattedAddress"];
+                                        } else {
+                                        }
+                                        if (isset($new_city)) {
+                                            $definedCity = $new_city;
+                                        } elseif (isset($gpsCity)) {
+                                            $definedCity = $gpsCity;
+                                        } else {
+                                            $definedCity = "Select A City";
+                                        }
+
+
+                                        ?>
+
                                         <!-- header error ends -->
 
 
@@ -156,6 +178,52 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                     </div>
                                     <form action="#" method="post">
                                         <div class="form-group">
+                                            <label for=""></label>
+                                            <div class="input-group">
+                                                <select class="form-control" name="city" id="">
+                                                    <!-- defined  -->
+                                                    <option value="<?php if (isset($definedCity)) {
+                                                                        echo $definedCity;
+                                                                    } else {
+                                                                        echo "not selected";
+                                                                    }  ?>" selected><?php if (isset($definedCity)) {
+                                                                                        echo $definedCity;
+                                                                                    } else {
+                                                                                        echo "Select A city";
+                                                                                    } ?></option>
+
+                                                    <?php
+
+                                                    $query = "SELECT * FROM `districts` ORDER BY `districts`.`name` ASC";
+                                                    $result = mysqli_query($con, $query);
+                                                    if (mysqli_num_rows($result) > 0) {
+
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            // $dist_id = $row["dist_id"];
+                                                            $dist_name = $row["name"];
+                                                            $dist_bn_name = $row["bn_name"];
+                                                    ?>
+
+                                                            <option value="<?php echo $dist_name ?>"> <?php echo $dist_name ?></option>
+
+
+
+                                                    <?php }
+                                                    }
+                                                    ?>
+
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <button onclick="refresh()" title="Get Your Location" class="btn btn-secondary" type="button"><i class="fas fa-map-marker-alt"></i></button>
+                                                </div>
+                                            </div>
+                                            <!-- suggestion -->
+                                            <div class="text-success p-2"><i class="fas fa-map-marker-alt"></i>  <?php if (isset($gpsAddress)) {
+                                                                            echo $gpsAddress;
+                                                                        } ?></div>
+
+
+                                            <!-- ------------------------------------------------------------------- -->
                                             <label for=""></label>
                                             <input type="text" class="form-control field-inner-shadow" name="username" id="" placeholder="Username" value="<?php if (isset($new_user)) {
                                                                                                                                                                 echo $new_user;
@@ -213,40 +281,7 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                             </div>
 
 
-                                            <label for=""></label>
-                                            <select class="form-control" name="city" id="">
-                                                <!-- defined  -->
-                                                <option value="<?php if (isset($new_city)) {
-                                                                    echo $new_city;
-                                                                } else {
-                                                                    echo "not selected";
-                                                                }  ?>" selected><?php if (isset($new_city)) {
-                                                                                    echo $new_city;
-                                                                                } else {
-                                                                                    echo "Select A city";
-                                                                                } ?></option>
 
-                                                <?php
-
-                                                $query = "SELECT * FROM `districts` ORDER BY `districts`.`name` ASC";
-                                                $result = mysqli_query($con, $query);
-                                                if (mysqli_num_rows($result) > 0) {
-
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        // $dist_id = $row["dist_id"];
-                                                        $dist_name = $row["name"];
-                                                        $dist_bn_name = $row["bn_name"];
-                                                ?>
-
-                                                        <option value="<?php echo $dist_name ?>"> <?php echo $dist_name ?></option>
-
-
-
-                                                <?php }
-                                                }
-                                                ?>
-
-                                            </select>
                                             <!-- Duplicate  -->
 
 

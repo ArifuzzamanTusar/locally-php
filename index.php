@@ -5,6 +5,8 @@ $bg = "discuss.jpg";
 include "header.php";
 
 ?>
+
+<script src="js/geolocation.js"></script>
 <link rel="stylesheet" href="css/marquee.css">
 
 <div class="page_body">
@@ -45,7 +47,7 @@ include "header.php";
 
                     <?php
                     // ||||||||||| NID Duplicate Validation ||||||||||
-                    if ($result = mysqli_query($con, "SELECT *  FROM `posts` WHERE `area` LIKE '$city'")) {
+                    if ($result = mysqli_query($con, "SELECT *  FROM `posts` WHERE `area` LIKE '$feedArea'")) {
                         /* determine number of rows result set  nid*/
                         $row_cnt = mysqli_num_rows($result);
 
@@ -53,20 +55,20 @@ include "header.php";
                     ?>
                             <center>
                                 <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_IwKi9V.json" background="transparent" speed="1" style="height: 300px; width:300px" loop autoplay></lottie-player>
-                                <h2>Whoopss! There's No posts in your area</h2>
+                                <h2>Whoopss! There's No posts in This area</h2>
                             </center>
                     <?php
                         }
                     }
                     ?>
 
-                
+
 
                     <!-- all posts  -->
                     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
                     <?php
 
-                    $topic_query = "SELECT *  FROM `posts` WHERE  `area` LIKE '$city' AND `post_status` LIKE 'approved' ORDER BY `id`  DESC";
+                    $topic_query = "SELECT *  FROM `posts` WHERE  `area` LIKE '$feedArea' AND `post_status` LIKE 'approved' ORDER BY `id`  DESC";
 
                     $result = mysqli_query($con, $topic_query);
                     if (mysqli_num_rows($result) > 0) {
@@ -86,10 +88,6 @@ include "header.php";
                             $post_author_id = $row["author_id"];
                             $post_time = $row["post_time"];
                             $topic_id = $row["topic_id"];
-
-
-
-
 
 
 
@@ -283,14 +281,96 @@ include "header.php";
                             <p>Welcome,</p>
                             <h4><?php echo $fname ?></h4>
                         </div>
+                        <!-- =================================================== -->
                         <div class="topic_lists">
-                            <a href="#">
-                                <div class="lists">
-                                    Feed Area - '<b class="text-success"><?php echo $city ?></b>'
+                            <div class="current_location">
+                                <div class="status bg-white">
+                                    <div class="btn text-white bg-success "><i class="fas <?php echo $city_icon ?>"></i></div>
+                                    <!-- <div class="btn text-white bg-success "><i class="fas <?php echo $city_icon ?>"></i></div> -->
+                                    <div class="btn"> <?php echo $feedArea ?></div>
                                 </div>
-                            </a>
+                                <div class="text-center">
+                                    <a type="button" class="p-2" data-toggle="modal" data-target="#modelId">
+                                        Change Location
+                                    </a>
+                                </div>
+
+                            </div>
+
+                            <div class="Modal Area ">
+
+                                <!-- Button trigger modal -->
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Change Location Manually</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <p>Current GPS location: <span class="text-success"> <?php echo $gpsAddress ?></span></p>
+                                                    <p><form action="#" method="post"> <button class="bg-success text-white btn" type="submit" name="set_toGPS">USE GPS</button></form></p>
+                                                    <p>Change Temporary Location to,</p>
+                                                    <form action="#" method="POST">
+                                                        <div class="input-group">
+                                                            <select class="form-control" name="temp_city" id="">
+                                                                <!-- defined  -->
+                                                                <option value="<?php if (isset($feedArea)) {
+                                                                                    echo $feedArea;
+                                                                                } else {
+                                                                                    echo "not selected";
+                                                                                }  ?>" selected><?php if (isset($feedArea)) {
+                                                                                        echo $feedArea;
+                                                                                    } else {
+                                                                                        echo "Select A city";
+                                                                                    } ?></option>
+
+                                                                <?php
+
+                                                                $query = "SELECT * FROM `districts` ORDER BY `districts`.`name` ASC";
+                                                                $result = mysqli_query($con, $query);
+                                                                if (mysqli_num_rows($result) > 0) {
+
+                                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                                        // $dist_id = $row["dist_id"];
+                                                                        $dist_name = $row["name"];
+                                                                        $dist_bn_name = $row["bn_name"];
+                                                                ?>
+
+                                                                        <option value="<?php echo $dist_name ?>"> <?php echo $dist_name ?></option>
+
+
+
+                                                                <?php }
+                                                                }
+                                                                ?>
+
+                                                            </select>
+                                                           
+                                                        </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button name="change_tempCity" type="submit" class="btn btn-primary">Change City</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
 
                         </div>
+                        <!-- ====================================================== -->
                     </div>
                     <div class=" pt-5">
                         <div class="sb_topics">
