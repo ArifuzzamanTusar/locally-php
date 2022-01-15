@@ -58,6 +58,7 @@ if (!isset($profile_picture)) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 
+    </script>
     <style>
         .col_1 {
             background-image: url();
@@ -107,7 +108,7 @@ if (!isset($profile_picture)) {
                     <div class="col_1">
                         <div class="container">
                             <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-                            <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_bp1bwvhv.json" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+                            <lottie-player src="images/contact-us.json" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
                         </div>
                     </div>
                 </div>
@@ -226,7 +227,34 @@ if (!isset($profile_picture)) {
                                 <script>
                                     CKEDITOR.replace('editor2');
                                 </script>
-                                <div class="text-right pt-2">
+
+                                <div class="recapcha pt-3">
+
+                                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+                                    <div class="g-recaptcha" data-sitekey="6LfLGXgdAAAAAJelZwQul6Mdh3NtxLqnMlUhDt_5"></div>
+                                    <script>
+                                        window.onload = function() {
+                                            var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+                                            if ($recaptcha) {
+                                                $recaptcha.setAttribute("required", "required");
+                                            }
+                                        };
+                                    </script>
+                                    <style>
+                                        #g-recaptcha-response {
+                                            display: block !important;
+                                            position: absolute;
+                                            margin: -78px 0 0 0 !important;
+                                            width: 302px !important;
+                                            height: 76px !important;
+                                            z-index: -999999;
+                                            opacity: 0;
+                                        }
+                                    </style>
+                                </div>
+                                <div class="text-left pt-2">
                                     <button type="submit" class="btn btn-primary "><i class="fas fa-paper-plane"></i> Submit</button>
 
                                 </div>
@@ -246,3 +274,5 @@ if (!isset($profile_picture)) {
     <?php
     include 'footer.php';
     ?>
+
+

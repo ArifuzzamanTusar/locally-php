@@ -41,7 +41,7 @@ if (isset($_POST["resend-otp"])) {
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Verify Your Email';
     $mail->Body    = $email_body;
-    $mail->AltBody = 'Welcome To Locally! Your OTP is: '.$OTP.'.  Verify your Email Now';
+    $mail->AltBody = 'Welcome To Locally! Your OTP is: ' . $OTP . '.  Verify your Email Now';
 
     // $mail->send();
     if ($mail->send()) {

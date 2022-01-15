@@ -40,26 +40,30 @@
                                             <input name="username" type="text" class="form-control field-inner-shadow" id="" placeholder="Username">
 
                                             <label for=""></label>
-                                            <input name="password" type="password" class="form-control field-inner-shadow" id="" placeholder="Password">
-                                            <label for=""></label>
+                                            <input name="password" type="password" class="form-control field-inner-shadow" id="" placeholder="Password">                                   
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label pt-3 pb-3">
+                                                    <input class="form-check-input" type="checkbox" name="" id="" value="checkedValue"> Remember Me
+                                                </label>
+                                            </div>
+
+
+
 
                                             <button name="login" type="submit" class="form-control login ">LOGIN</button>
 
                                             <div class="row">
-                                                <div class="col-md-6 col-sm-6 pt-3">
-                                                    <div class="form-check">
-
-                                                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue">
-                                                        Remember Login
-
+                                                <div class="col-6 pt-3">
+                                                    <div class="text-left">
+                                                        <a href="forgot-password.php">Forgot Password?</a>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-sm-6 pt-3">
-                                                    <div class="form-check text-right">
+                                                <div class="col-6 pt-3">
+                                                    <div class=" text-right">
                                                         <a href="register.php">Create Account</a>
                                                     </div>
                                                 </div>
-                                               
+
                                             </div>
                                             <div class="validation pt-3">
                                                 <!-- |||||||||||||||||||||||||||||||    VALIDATION   |||||||||||||||||||||||||||||| -->

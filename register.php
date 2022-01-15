@@ -1,4 +1,5 @@
-<?php include 'connection.php'; ?>
+<?php include 'connection.php'; 
+include 'email-config.php';?>
 <!-- 
     
 INSERT INTO `user` (`id`, `username`, `First name`, `Last Name`, `email`, `phone`, `bio`, `city`, `nid`, `birthday`, `gender`, `facebook`, `twitter`, `website`, `linkedin`, `password`) 
@@ -118,11 +119,56 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                                 $new_user_query = "INSERT INTO `user` (`username`,`email`, `nid`,`city`,`password`,`status`,`ev_status`) 
                                                                      VALUES ('$new_user', '$new_email','$new_nid','$new_city', '$md5_new_pass','$new_status','$ev_status');";
                                                 if (mysqli_query($con, $new_user_query)) {
+                                                    // JODI registraton hoy 
+                                                    $email_receiver = $new_email;
+                                                    $OTP = rand(100000, 999999);
+                                                    $email_body = '
+                                                    <center>
+                                                        <div style="background:#F5EEDC; padding:80px 10px;">
+                                                            <div style="width:600px; border-radius:10px;">
+                                                
+                                                                <div style="background:#363062; padding:20px 0px;">
+                                                                    <img width="200px" src="https://res.cloudinary.com/tusar/image/upload/v1638641935/locally/logo-dark_b7rzfx.png" alt="locally Logo">
+                                                                </div>
+                                                                <div style="background:#ffffff; padding:20px 20px;">
+                                                                    <h2>Thank you for registarting at Locally </h2>
+                                                                    <p>Use this Code bellow to verify your email, It will be expired soon </p>
+                                                                    <h1 style="color:#363062;">' . $OTP . '</h1>
+                                                                    <br>
+                                                                    <p>or, click on the button to verify your email</p>
+                                                                    <br><br>
+                                                                    <a style="padding: 20px; background:#363062; color:#ffffff; text-decoration:none" href="' . $_SERVER['HTTP_HOST'] . '/verify-email.php?otp=' . $OTP . ' ">VERIFY NOW</a>
+                                                                    <br><br>
+                                                                </div>
+                                                                <div style="background:#363062;  padding:10px 0px;">
+                                                                    <p style="color:white;"> &copy; all right reseved Locally</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </center>
+                                                    
+                                                    ';
+                                                    $mail->addAddress($email_receiver);     //Add a recipient
 
+                                                    //Content
+                                                    $mail->isHTML(true);                                  //Set email format to HTML
+                                                    $mail->Subject = 'Verify Your Email';
+                                                    $mail->Body    = $email_body;
+                                                    $mail->AltBody = 'Welcome To Locally! Your OTP is: ' . $OTP . '.  Verify your Email Now';
 
-                                                    $product_up_ok = "Successfull!" . "<br>" . "Your account is now under review";
-                                                    echo '<div class="alert-light text-success text-center py-3">' . $product_up_ok . '</div>';
-                                                    // header("location:manage-topic.php");
+                                                    // $mail->send();
+                                                    if ($mail->send()) {
+                                                        $update_query = "UPDATE `user` SET  `last_otp_code` = '$OTP' WHERE `user`.`email` LIKE '$email_receiver';";
+                                                        if (mysqli_query($con, $update_query)) {
+                                                            ?>
+                                                            <div class="alert-light text-success text-center p-3">Registration Succesful. Please check your EMAIL and Verify</div>
+                                                            <?php 
+                                                        
+                                                        }
+                                                    }
+
+                                                  
+                                                   
 
                                                 } else {
                                                     $product_up_failed = "Failed";
@@ -218,9 +264,9 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                                 </div>
                                             </div>
                                             <!-- suggestion -->
-                                            <div class="text-success p-2"><i class="fas fa-map-marker-alt"></i>  <?php if (isset($gpsAddress)) {
-                                                                            echo $gpsAddress;
-                                                                        } ?></div>
+                                            <div class="text-success p-2"><i class="fas fa-map-marker-alt"></i> <?php if (isset($gpsAddress)) {
+                                                                                                                    echo $gpsAddress;
+                                                                                                                } ?></div>
 
 
                                             <!-- ------------------------------------------------------------------- -->
