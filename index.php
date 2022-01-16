@@ -315,7 +315,9 @@ include "header.php";
                                             <div class="modal-body">
                                                 <div class="text-center">
                                                     <p>Current GPS location: <span class="text-success"> <?php echo $gpsAddress ?></span></p>
-                                                    <p><form action="#" method="post"> <button class="bg-success text-white btn" type="submit" name="set_toGPS">USE GPS</button></form></p>
+                                                    <p>
+                                                    <form action="#" method="post"> <button class="bg-success text-white btn" type="submit" name="set_toGPS">USE GPS</button></form>
+                                                    </p>
                                                     <p>Change Temporary Location to,</p>
                                                     <form action="#" method="POST">
                                                         <div class="input-group">
@@ -326,10 +328,10 @@ include "header.php";
                                                                                 } else {
                                                                                     echo "not selected";
                                                                                 }  ?>" selected><?php if (isset($feedArea)) {
-                                                                                        echo $feedArea;
-                                                                                    } else {
-                                                                                        echo "Select A city";
-                                                                                    } ?></option>
+                                                                                                    echo $feedArea;
+                                                                                                } else {
+                                                                                                    echo "Select A city";
+                                                                                                } ?></option>
 
                                                                 <?php
 
@@ -352,9 +354,9 @@ include "header.php";
                                                                 ?>
 
                                                             </select>
-                                                           
+
                                                         </div>
-                                                   
+
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

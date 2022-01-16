@@ -59,8 +59,11 @@ include "admin-header.php";
                         $report_subject = $row["subject"];
                         $report_criteria = $row["criteria"];
                         $report_message = $row["message"];
-                        $report_date = $row["date"];
-                        $report_time = $row["time"];
+                        $date_time = date_create($row["time"]);
+
+
+                        $report_date = date_format($date_time, "d F");
+                        $report_time = date_format($date_time, "g:i A");
 
 
 
@@ -73,7 +76,7 @@ include "admin-header.php";
                             <td><?php echo $report_username ?></td>
                             <td><?php echo $report_criteria ?></td>
                             <td><?php echo $report_subject ?></td>
-                            <td><?php echo $report_date ?></td>
+                            <td><?php echo $report_date ." - ".$report_time?></td>
                             <td style="text-align: center;"> <a data-toggle="modal" href="#mgsid<?php echo $report_id ?>" class="btn btn-primary">view</a></td>
                         </tr>
                         <div class="modal fade" id="mgsid<?php echo $report_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -89,7 +92,7 @@ include "admin-header.php";
                                         <div class="container">
 
                                             <div class=""><strong>Date:</strong> <?php echo $report_date ?></div>
-                                            <div class=""><strong>Time:</strong> <?php echo $report_time ?></div>
+                                            <div class=""><strong>Time:</strong> <?php echo $report_time?></div>
                                             <div class=""><strong>From:</strong> <?php echo $report_email ?></div>
                                             <div class=""><strong>User Name:</strong> <?php echo $report_username ?></div>
                                             <div class=""><strong>Criteria:</strong> <?php echo $report_criteria ?></div>

@@ -176,6 +176,7 @@ body {
   color: white;
 }
 .single_post_image {
+  min-height: 100px;
   border-radius: 15px;
   overflow: hidden;
 }

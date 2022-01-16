@@ -1,6 +1,8 @@
 <?php
 include 'connection.php';
 require_once 'login-session.php';
+
+include "cloudinary-config.php";
 if (isset($_POST["update_post_image"])) {
     // getting all mf things 
 
@@ -9,25 +11,60 @@ if (isset($_POST["update_post_image"])) {
     $post_id = $_REQUEST["post_id"];
 
     // files 
+    // ********* CLOUDINARY ***************
 
-    $up_post_img = rand(1000, 10000) . "-" . $_FILES["post_img"]["name"];
+    $imageType = ["jpg", "png", "jpeg", "gif"];
 
-    #temporary file name to store file
-    $tname_avater = $_FILES["post_img"]["tmp_name"];
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["post-img"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+    // Check if image file is a actual image or fake image
 
-    #upload directory path
-    $uploads_dir_avater = 'uploads/post__image';
+    $check = getimagesize($_FILES["post-img"]["tmp_name"]);
+    if ($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
 
-    #TO move the uploaded file to specific location
-    move_uploaded_file($tname_avater, $uploads_dir_avater . '/' . $up_post_img);
-    if (strlen($up_post_img) < 6) {
-        $up_post_img = $db_up_post_img;
+    // Check if file already exists
+
+    // Check file size exceeds from 5mb
+    if ($_FILES["post-img"]["size"] > 5000000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+    // Allow certain file formats
+    //check file extension
+    foreach ($imageType as $type) {
+        if (strcasecmp($type, $imageFileType) == 0);
+        $uploadok = 1;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+    } else {
+
+        $image_properties = \Cloudinary\Uploader::upload($_FILES["post-img"]["tmp_name"], array("upload_preset" => "locally"));
+        $image_url = $image_properties['secure_url'];
+        // echo ('           ' . "<a href=\"$image_url\" target=\"_blank\"> View uploaded image </a>");
     }
 
 
 
 
-    $sql = "UPDATE `posts` SET `image` = '$up_post_img' WHERE `posts`.`id` =$post_id;";
+
+
+    // *********** CLOUDINARY **************** 
+
+
+
+
+    $sql = "UPDATE `posts` SET `image` = '$image_url' WHERE `posts`.`id` =$post_id;";
 
 
     if (mysqli_query($con, $sql)) {

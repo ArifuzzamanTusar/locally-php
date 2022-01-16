@@ -56,7 +56,7 @@ include "header.php";
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#imgID<?php echo $post_id ?>"><i class="fas fa-pencil-alt"></i> </button>
                         </div>
 
-                        <a href="post.php?id= <?php echo $post_id ?>"><img class="mng_post_image" src="uploads/post__image/<?php echo $post_image ?>" width="100%" alt=""></a>
+                        <a href="post.php?id= <?php echo $post_id ?>"><img class="mng_post_image" src="<?php echo $post_image ?>" width="100%" alt=""></a>
 
                         <div class="p-2">
                             <div class="topic-tittle pt-2"><b>Status:</b> <span class="<?php echo $post_stats ?>"><?php echo $post_stats ?></span></div>
@@ -131,14 +131,14 @@ include "header.php";
                                         <div class="modal-body">
                                             <form action="updatepostimage.php" method="POST" enctype="multipart/form-data">
 
-                                                <img class="mng_post_image" src="uploads/post__image/<?php echo $post_image ?>" width="100%" alt="">
+                                                <img class="mng_post_image" src="<?php echo $post_image ?>" width="100%" alt="">
 
                                                 <!-- ========================================================== -->
                                                 <div class="p-2">Change Image</div>
 
 
                                                 <div class="custom-file">
-                                                    <input name="post_img" type="file" class="custom-file-input" id="customFileInput" aria-describedby="customFileInput">
+                                                    <input name="post-img" type="file" class="custom-file-input" id="customFileInput" aria-describedby="customFileInput">
                                                     <label class="custom-file-label" for="customFileInput">Select a file</label>
                                                 </div>
                                                 <script>
