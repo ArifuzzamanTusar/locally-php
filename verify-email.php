@@ -5,6 +5,12 @@ include 'connection.php';
 
 session_start();
 
+
+if (isset($_GET['otp'])) {
+    $get_req_token = $_REQUEST['otp'];
+}
+
+
 if (isset($_SESSION['username_session'])) {
 
     $logged_user =  $_SESSION['username_session'];
@@ -29,7 +35,7 @@ if (isset($_SESSION['username_session'])) {
         }
     }
 } else {
-    header("location:login.php");
+    // header("location:login.php");
 }
 
 
@@ -102,7 +108,12 @@ if (isset($_REQUEST['verify-email'])) {
                                                     OTP verifition for <i> <?php echo $email ?></i>
                                                     <a href="logout.php?logout">(Change account)</a>
                                                 </label>
-                                                <input name="otp" type="number" class="form-control field-inner-shadow" id="" placeholder="OTP here">
+                                                <input name="otp" type="number" class="form-control field-inner-shadow" id="" placeholder="OTP here" value="<?php if (isset($get_req_token)) {
+                                                                                                echo $get_req_token;
+                                                                                            } elseif (isset($input_otp)) {
+                                                                                                echo $input_otp;
+                                                                                            }
+                                                                                            ?>">
 
                                                 <div class="p-2"></div>
                                                 <button name="verify-email" value="true" type="submit" class="form-control login ">Verify Your Email</button>
@@ -112,7 +123,7 @@ if (isset($_REQUEST['verify-email'])) {
                                                 <div class="validation pt-3">
                                                     <!-- |||||||||||||||||||||||||||||||    VALIDATION   |||||||||||||||||||||||||||||| -->
                                                     <?php
-                                                    echo $last_otp;
+                                                    // echo $last_otp;
                                                     if (isset($otp_failed)) {
                                                     ?>
                                                         <div class="alert-danger text-danger text-center"><?php echo $otp_failed; ?></div>
