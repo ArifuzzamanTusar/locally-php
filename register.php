@@ -161,7 +161,7 @@ VALUES (NULL, 'tusar', 'Arifuzzaman', 'Tusar', 'arifuzzamantusar50@ggmail.com', 
                                                         $update_query = "UPDATE `user` SET  `last_otp_code` = '$OTP' WHERE `user`.`email` LIKE '$email_receiver';";
                                                         if (mysqli_query($con, $update_query)) {
                                                             ?>
-                                                            <div class="alert-light text-success text-center p-3">Registration Succesful. Please check your EMAIL and Verify</div>
+                                                            <div class="alert-light text-success text-center p-3">Registration Succesful. Please login now</div>
                                                             <?php 
                                                         
                                                         }
