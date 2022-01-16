@@ -144,7 +144,7 @@ include "header.php";
                             <a class="single_post_category_tittle" href="single-topic.php?topic-id=<?php echo $post_topic_id ?>"><?php echo $post_topic ?></a>
                         </div>
                         <div class="single_post_image">
-                            <a href="post.php?id=<?php echo $post_id ?>"> <img src="uploads/post__image/<?php echo $post_image ?>" width="100%" alt=""> </a>
+                            <a href="post.php?id=<?php echo $post_id ?>"> <img src="<?php echo $post_image ?>" width="100%" alt=""> </a>
                         </div>
                         <?php
 

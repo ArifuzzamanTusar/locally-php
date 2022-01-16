@@ -2,6 +2,7 @@
 $page_tittle = "Create Post";
 $page_id = 3;
 include "header.php";
+include "cloudinary-config.php";
 ?>
 
 
@@ -40,17 +41,71 @@ include "header.php";
 
             // post__images
 
+            // ********* CLOUDINARY ***************
+
+            $imageType = ["jpg", "png", "jpeg", "gif"];
+
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["post-img"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+            // Check if image file is a actual image or fake image
+
+            $check = getimagesize($_FILES["post-img"]["tmp_name"]);
+            if ($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+
+            // Check if file already exists
+
+            // Check file size exceeds from 5mb
+            if ($_FILES["post-img"]["size"] > 5000000) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+            // Allow certain file formats
+            //check file extension
+            foreach ($imageType as $type) {
+                if (strcasecmp($type, $imageFileType) == 0);
+                $uploadok = 1;
+            }
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+                // if everything is ok, try to upload file
+            } else {
+
+                $image_properties = \Cloudinary\Uploader::upload($_FILES["post-img"]["tmp_name"], array("upload_preset" => "locally"));
+                $image_url = $image_properties['secure_url'];
+               // echo ('           ' . "<a href=\"$image_url\" target=\"_blank\"> View uploaded image </a>");
+            }
+
+
+
+
+
+
+            // *********** CLOUDINARY **************** 
+
+
             #file name with a "random number" so that similar dont get replaced
-            $post_image = rand(1000, 10000) . "-" . $_FILES["post-img"]["name"];
+            // $post_image = rand(1000, 10000) . "-" . $_FILES["post-img"]["name"];
+
+            #cloudinary
+            $post_image = $image_url;
 
             #temporary file name to store file
-            $tname = $_FILES["post-img"]["tmp_name"];
+            // $tname = $_FILES["post-img"]["tmp_name"];
 
             #upload directory path
-            $uploads_dir = 'uploads/post__image';
+            // $uploads_dir = 'uploads/post__image';
 
             #TO move the uploaded file to specific location
-            move_uploaded_file($tname, $uploads_dir . '/' . $post_image);
+            // move_uploaded_file($tname, $uploads_dir . '/' . $post_image);
 
 
 
@@ -67,12 +122,11 @@ include "header.php";
                 $post_error = "Sorry, We cant read your mind,, Please discribe your mind";
             } else {
                 if (mysqli_query($con, $sql)) {
-                    
+
                     header("location:manage-post.php");
 
                     $post_up_ok = "Post Sucessfully Added";
                     echo '<div class="alert-light text-success text-center py-3">' . $post_up_ok . '</div>';
-
                 } else {
                     $post_up_failed = "Failed";
                     echo '<div class="alert-light text-danger text-center py-3">' . $post_up_failed . '</div>';
@@ -103,10 +157,10 @@ include "header.php";
             <?php
             if (isset($post_error)) {
             ?>
-            <div class="bg-danger p-2">
-             <div class="text-light"><?php echo $post_error?></div> 
-            </div>
-            <div class="p-3"></div>
+                <div class="bg-danger p-2">
+                    <div class="text-light"><?php echo $post_error ?></div>
+                </div>
+                <div class="p-3"></div>
 
             <?php
             }
@@ -121,11 +175,11 @@ include "header.php";
 
 
                         <div class="form-group">
-                            <h6>Hellow! <?php  echo $username ?> </h6>
+                            <h6>Hellow! <?php echo $username ?> </h6>
                             <label for="">Please discribe Your Post</label>
                             <!-- ck editor -->
                             <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
-                            
+
                             <textarea class="form-control" name="post__discription" id="editor2"></textarea>
                             <!-- <textarea name="news_descrip" id="editor2" rows="10"> </textarea> -->
                             <script>
@@ -135,8 +189,9 @@ include "header.php";
 
                         <label for="">Upload post Feature Images </label> <br>
 
-                        <input type="file" name="post-img">
+                        <input type="file" name="post-img" required onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
                         <pre> Choose jpg,jpeg,png 3:2 Ratio </pre>
+                        <img src="https://res.cloudinary.com/tusars-locally/image/upload/v1642299692/image-placeholder_lkuryw.jpg" id="image" alt="your image" width="auto" height="200px" />
 
                         <div class="form-group">
                             <label for="">Select Topic</label>
@@ -186,4 +241,23 @@ include "header.php";
 
 <?php
 include 'footer.php';
+
 ?>
+<script>
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#fileToUpload").change(function() {
+        readURL(this);
+    });
+</script>
