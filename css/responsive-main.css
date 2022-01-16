@@ -37,4 +37,9 @@
     display: block;
   }
   
+.create-placeholder{
+  width:100%;
+  height: auto;
+}
+  
 }

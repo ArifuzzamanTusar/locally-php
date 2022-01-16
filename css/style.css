@@ -328,3 +328,7 @@ body {
 }
 /* ------------------------------- */
 
+.create-placeholder{
+  width: 50%;
+  height: auto;
+}

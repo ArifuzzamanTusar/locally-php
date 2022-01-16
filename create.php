@@ -191,7 +191,7 @@ include "cloudinary-config.php";
 
                         <input type="file" name="post-img" required onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
                         <pre> Choose jpg,jpeg,png 3:2 Ratio </pre>
-                        <img src="https://res.cloudinary.com/tusars-locally/image/upload/v1642299692/image-placeholder_lkuryw.jpg" id="image" alt="your image" width="auto" height="200px" />
+                        <img src="https://res.cloudinary.com/tusars-locally/image/upload/v1642299692/image-placeholder_lkuryw.jpg" id="image" alt="your image" class="create-placeholder" />
 
                         <div class="form-group">
                             <label for="">Select Topic</label>
